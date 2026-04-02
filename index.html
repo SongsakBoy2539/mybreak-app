@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Selection</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            color: #333;
+        }
+        h3 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        button {
+            padding: 20px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        /* สีปุ่มแยกตามประเภท */
+        .btn-eat { background-color: #ff9f43; color: white; }
+        .btn-smoke { background-color: #54a0ff; color: white; }
+        .btn-toilet { background-color: #1dd1a1; color: white; }
+        .btn-down { background-color: #5f27cd; color: white; }
+        .btn-talk { background-color: #ff6b6b; color: white; }
+        .btn-other { background-color: #48dbfb; color: white; }
+        /* สีปุ่มพิเศษที่เพิ่มมาใหม่ */
+        .btn-medical { background-color: #ee5253; color: white; }
+        .btn-leave { background-color: #10ac84; color: white; }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+        .emoji {
+            font-size: 24px;
+        }
+    </style>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function sendData(reason) {
+            const platform = tg.platform;
+            const payload = {
+                reason: reason,
+                platform: platform,
+                timestamp: new Date().toISOString()
+            };
+            tg.sendData(JSON.stringify(payload));
+            tg.close();
+        }
+    </script>
+</head>
+<body>
+    <h3>📍 เลือกเหตุผลการพัก</h3>
+    
+    <div class="button-grid">
+        <button class="btn-eat" onclick="sendData('🍚 กินข้าว')">
+            <span class="emoji">🍚</span> กินข้าว
+        </button>
+        <button class="btn-smoke" onclick="sendData('🚬 สูบบุหรี่')">
+            <span class="emoji">🚬</span> สูบบุหรี่
+        </button>
+        <button class="btn-toilet" onclick="sendData('🚽 เข้าห้องน้ำ')">
+            <span class="emoji">🚽</span> เข้าห้องน้ำ
+        </button>
+        <button class="btn-down" onclick="sendData('🏃 ลงไปข้างล่าง')">
+            <span class="emoji">🏃</span> ลงไปข้างล่าง
+        </button>
+        <button class="btn-talk" onclick="sendData('💬 นั่งเม้ามอย')">
+            <span class="emoji">💬</span> นั่งเม้ามอย
+        </button>
+        <button class="btn-other" onclick="sendData('💼 ทำธุระ')">
+            <span class="emoji">💼</span> ทำธุระ
+        </button>
+        <button class="btn-medical" onclick="sendData('🦷 ทำฟัน')">
+            <span class="emoji">🦷</span> ทำฟัน
+        </button>
+        <button class="btn-medical" onclick="sendData('👩‍⚕️ หาหมอ')">
+            <span class="emoji">👩‍⚕️</span> หาหมอ
+        </button>
+        <button class="btn-leave" onclick="sendData('🍀 ลากิจ/ลาป่วย')">
+            <span class="emoji">🍀</span> ลากิจ/ลาป่วย
+        </button>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 12px; color: #95a5a6;">
+        ระบบจะทำการตรวจสอบอุปกรณ์อัตโนมัติ
+    </p>
+</body>
+</html>
